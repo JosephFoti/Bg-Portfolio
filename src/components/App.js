@@ -1,21 +1,24 @@
 import React from 'react';
-import Header from './Header';
-import '../styles/App.css';
-import HomepageGallery from './HomepageGallery';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from './Home';
+// import Header from './Header';
 
 class App extends React.Component {
     render () {
-
-        const GalleriesTemp = [ "Word Art", "Collage", "Painting", "Comic Concepts" ];
-
         return (
-            <div>
-                <Header />
-                <h1>hello world</h1>
-                {GalleriesTemp.map((x,i)=>{
-                  return <HomepageGallery name={x} id={i} />
-                })}
-            </div>
+            <BrowserRouter>
+                <main>
+                    <Switch>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <Home />
+                            )}
+                        />
+                    </Switch>
+                </main>
+            </BrowserRouter>
         );
     }
 }
