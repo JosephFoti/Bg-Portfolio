@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const Header = () => {
     return (
         <nav className="px2 mt1 center">

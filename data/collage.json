@@ -1,0 +1,72 @@
+[{
+    "id": "collage1",
+    "src": "collage1.jpg",
+    "title": "Split In Two",
+    "sale": "Not For Sale",
+    "year": "2016"
+  },
+
+  {
+    "id": "collage2",
+    "src": "collage2.jpg",
+    "title": "Mathmatical",
+    "sale": "Not For Sale",
+    "year": "2016"
+  },
+
+  {
+    "id": "collage3",
+    "src": "collage3.jpg",
+    "title": "When You Can't Be Yourself there is Too Much to Be",
+    "sale": "Not For Sale",
+    "year": "2016"
+  },
+
+  {
+    "id": "collage4",
+    "src": "collage4.jpg",
+    "title": "Underwater",
+    "sale": "Not For Sale",
+    "year": "2016"
+  },
+
+  {
+    "id": "collage5",
+    "src": "collage5.jpg",
+    "title": "I Tried to Speak to a Tree, But it Knew More Colors than Me",
+    "sale": "Not For Sale",
+    "year": "2016"
+  },
+
+  {
+    "id": "collage6",
+    "src": "collage6.jpg",
+    "title": "untitled",
+    "sale": "Not For Sale",
+    "year": "2016"
+  },
+
+  {
+    "id": "collage7",
+    "src": "collage7.jpg",
+    "title": "untitled",
+    "sale": "Not For Sale",
+    "year": "2016"
+  },
+
+  {
+    "id": "collage8",
+    "src": "collage8.jpg",
+    "title": "untitled",
+    "sale": "Not For Sale",
+    "year": "2016"
+  },
+
+  {
+    "id": "collage9",
+    "src": "collage9.jpg",
+    "title": "untitled",
+    "sale": "Not For Sale",
+    "year": "2016"
+  }
+]

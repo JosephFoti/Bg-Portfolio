@@ -10,9 +10,9 @@ class HomepageGallery extends React.Component {
     }
     render () {
         return (
-            <div className="border-top p3 my2 flex" width="100%" key={this.props.id}>
-                <div className="p2 mr3" style={{ flex: 3 }}>
-                    <img src="#" className="fit" />
+            <div className="border-top p3 flex" width="100%">
+                <div className="p2 mr3" style={{ flex: 3, lineHeight: 0 }}>
+                    <img src={`./images/featured/${this.props.src}-ft.jpg`} className="fit" alt={this.props.name} />
                 </div>
                 <div className="p2" style={{ flex: 5 }}>
                     <h1 className="h1 my1">{this.props.name}</h1>
@@ -27,7 +27,7 @@ class HomepageGallery extends React.Component {
 
 HomepageGallery.propTypes = {
     name: PropType.string,
-    id: PropType.number
+    src: PropType.string
 };
 
 export default HomepageGallery;
