@@ -6,6 +6,21 @@ import Gallery from './Gallery';
 
 class Home extends React.Component {
 
+    constructor(props) {
+      super(props)
+      this.state = {
+        ACTIVE_GALLERY: false
+      }
+      this.handleGallery = this.handleGallery.bind(this);
+    }
+
+    handleGallery(e) {
+      console.log(e.target);
+      this.setState({
+        ACTIVE_GALLERY: 'clicked'
+      });
+    }
+
     render () {
 
         const GALLERIES_TEMP = [ "Word Art", "Collage", "Painting", "Comic Concepts" ];
@@ -16,9 +31,9 @@ class Home extends React.Component {
                 <Header />
                 <h1>hello world</h1>
                 {GALLERIES_TEMP.map((x,i)=>{
-                  return <HomepageGallery name={x} key={i} src={IMAGE_POINTERS[i]} />
+                  return <HomepageGallery name={x} key={i} src={IMAGE_POINTERS[i]} onclick={this.handleGallery}/>
                 })}
-                <Gallery /> 
+                <Gallery />
             </div>
         );
     }
