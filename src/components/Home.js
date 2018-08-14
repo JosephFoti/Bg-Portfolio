@@ -1,8 +1,12 @@
 import React from 'react';
 import Header from './Header';
 import '../styles/App.css';
-import HomepageGallery from './HomepageGallery';
+import HomepageGalleries from './HomepageGalleries';
 import Gallery from './Gallery';
+
+
+const GALLERIES_TEMP = [ "Word Art", "Collage", "Painting", "Comic Concepts" ];
+const IMAGE_POINTERS = ["word-art", "collage", "painting", "comic-concepts"];
 
 class Home extends React.Component {
 
@@ -12,28 +16,37 @@ class Home extends React.Component {
         ACTIVE_GALLERY: false
       }
       this.handleGallery = this.handleGallery.bind(this);
+      this.closeGallery = this.closeGallery.bind(this);
     }
 
     handleGallery(e) {
-      console.log(e.target);
+      let target = e.target.parentElement;
+      console.log('handleGallery called');
+      if (target.dataset.index) {
+        console.log('about to set state');
+        let index = parseInt(target.dataset.index);
+        this.setState({
+          ACTIVE_GALLERY: IMAGE_POINTERS[index]
+        })
+      }
+      console.log(`the state of ACTIVE_GALLERY is ${this.state.ACTIVE_GALLERY}`);
+
+    }
+
+    closeGallery() {
       this.setState({
-        ACTIVE_GALLERY: 'clicked'
-      });
+        ACTIVE_GALLERY: false
+      })
     }
 
     render () {
-
-        const GALLERIES_TEMP = [ "Word Art", "Collage", "Painting", "Comic Concepts" ];
-        const IMAGE_POINTERS = ["word-art", "collage", "painting", "comic-concepts"];
-
+        const onclick = this.handleGallery
         return (
             <div>
                 <Header />
                 <h1>hello world</h1>
-                {GALLERIES_TEMP.map((x,i)=>{
-                  return <HomepageGallery name={x} key={i} src={IMAGE_POINTERS[i]} onclick={this.handleGallery}/>
-                })}
-                <Gallery />
+                <HomepageGalleries galleries={GALLERIES_TEMP} srcValues={IMAGE_POINTERS} onclick={onclick} />
+                {this.state.ACTIVE_GALLERY ? <Gallery type={this.state.ACTIVE_GALLERY} reset={this.closeGallery}/> : null}
             </div>
         );
     }
