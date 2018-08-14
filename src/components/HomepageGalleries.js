@@ -16,7 +16,7 @@ class HomepageGalleries extends React.Component {
 
 HomepageGalleries.propTypes = {
   galleries: PropType.array,
-  handleGallery: PropType.function,
+  handleGallery: PropType.func,
   srcValues: PropType.array
 }
 

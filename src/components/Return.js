@@ -1,20 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Return extends React.Component {
-    constructor (props) {
-        super(props);
-    }
-
-    render () {
-        return (<div>
-            <button onClick={this.props.onclick}/>
-        </div>);
-    }
-}
+const Return = ({ onclick }) => (
+  <div>
+    <button onClick={onclick}/>
+  </div>
+);
 
 Return.propTypes = {
-    onclick: PropTypes.function
+  onclick: PropTypes.func
 };
 
 export default Return;
