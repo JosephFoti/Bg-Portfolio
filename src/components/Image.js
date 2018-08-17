@@ -2,7 +2,6 @@ import React from 'react';
 import PropType from 'prop-types';
 
 
-
 // const Image = ({ type,id,title,index }) => (
 //   <div className="p1" key={index} style={{ flex: "1 0 30%" }}>
 //     <img className="image" width="100%" src={`./images/${type}/thumbs/sm-${id}.jpg`} alt={title}/>
@@ -10,7 +9,6 @@ import PropType from 'prop-types';
 // );
 
 class Image extends React.Component {
-
   componentWillEnter (cb) {
     console.log('enter hook called');
   }
@@ -20,10 +18,10 @@ class Image extends React.Component {
   }
 
   render () {
-    const { index,type,id,title } = this.props;
+    const { index, type, id, title, handleSingleData } = this.props;
     return (
-      <div className="p1" key={index} style={{ flex: "1 0 30%" }}>
-        <img className="image" width="100%" src={`./images/${type}/thumbs/sm-${id}.jpg`} alt={title}/>
+      <div className="p1" key={index} style={{ flex: "1 0 30%" }} onClick={handleSingleData}>
+        <img className="image" width="100%" src={`./images/${type}/thumbs/sm-${id}.jpg`} alt={title} data-id={id}/>
       </div>
     );
   }
@@ -31,9 +29,11 @@ class Image extends React.Component {
 
 
 Image.propTypes = {
+  index: PropType.number,
   type: PropType.string,
   id: PropType.string,
-  title: PropType.string
+  title: PropType.string,
+  handleSingleData: PropType.func
 };
 
 export default Image;

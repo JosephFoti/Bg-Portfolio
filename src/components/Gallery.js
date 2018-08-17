@@ -1,7 +1,7 @@
 import React from 'react';
 import PropType from 'prop-types';
 import axios from 'axios';
-import { TweenMax, Power2 } from 'gsap/TweenMax'
+import { TweenMax, Power2 } from 'gsap/TweenMax';
 
 import Return from './Return';
 import Image from './Image';
@@ -11,10 +11,11 @@ class Gallery extends React.Component {
     super(props);
     this.state = {
       data: false,
-      loading: false,
+      loading: false
     };
     this.GalleryRef = React.createRef();
     this.handleAnimation = this.handleAnimation.bind(this);
+    this.handleSingleData = this.handleSingleData.bind(this);
   }
 
   componentDidMount () {
@@ -28,11 +29,23 @@ class Gallery extends React.Component {
     }
   }
 
-  handleAnimation() {
-    setTimeout(()=>{
+  handleSingleData (e) {
+    const targetId = e.target.dataset.id;
+    console.log(this.state.data);
+    const singleData = this.state.data.content.filter(x => {
+      if (x.id === targetId) {
+        x.type = this.state.data.name;
+        return x;
+      }
+    });
+    this.props.handleLightbox(singleData);
+  }
+
+  handleAnimation () {
+    setTimeout(() => {
       this.setState({ loading: false });
-    },1000);
-    TweenMax.from(this.GalleryRef.current, 2, {delay:1, alpha:0});
+    }, 1000);
+    TweenMax.from(this.GalleryRef.current, 2, { delay: 1, alpha: 0 });
   }
 
   render () {
@@ -42,11 +55,11 @@ class Gallery extends React.Component {
       return (
         <div>
           <Return onclick={this.props.reset}/>
-          {this.state.loading ? <h1 className="center p2" id="loading">Loading...</h1> : <h1></h1>}
+          {this.state.loading ? <h1 className="center p2" id="loading">Loading...</h1> : null}
           <div className="p2 flex flex-wrap" id="Gallery-Container" ref={this.GalleryRef} >
             {
               data.content.map((x, i) => {
-                return <Image type={data.name} id={x.id} index={i} title={x.title} key={i} />;
+                return <Image type={data.name} id={x.id} index={i} title={x.title} key={i} handleSingleData={this.handleSingleData} />;
               })
             }
           </div>
@@ -61,7 +74,8 @@ class Gallery extends React.Component {
 Gallery.propTypes = {
   data: PropType.object,
   type: PropType.string,
-  reset: PropType.func
+  reset: PropType.func,
+  handleLightbox: PropType.func
 };
 
 export default Gallery;

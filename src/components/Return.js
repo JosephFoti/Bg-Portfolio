@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Return = ({ onclick }) => (
   <div>
-    <button onClick={onclick}/>
+    <button onClick={onclick}>Return Home</button>
   </div>
 );
 
