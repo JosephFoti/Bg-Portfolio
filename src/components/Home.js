@@ -5,6 +5,7 @@ import Gallery from './Gallery';
 import Lightbox from './Lightbox';
 import '../styles/App.css';
 
+// Strings that match with gallery names, to be replaced with an axios call
 const GALLERIES_TEMP = ["Word Art", "Collage", "Painting", "Comic Concepts"];
 const IMAGE_POINTERS = ["word-art", "collage", "painting", "comic-concepts"];
 
@@ -14,7 +15,8 @@ class Home extends React.Component {
     this.state = {
       ACTIVE_GALLERY: false,
       ACTIVE_INDEX: null,
-      ACTIVE_LIGHTBOX: false
+      ACTIVE_LIGHTBOX: false,
+      ACTIVE_DATA: false
     };
     this.handleGallery = this.handleGallery.bind(this);
     this.handleLightbox = this.handleLightbox.bind(this);
@@ -35,8 +37,8 @@ class Home extends React.Component {
     this.setState({ ACTIVE_GALLERY: false, ACTIVE_INDEX: null });
   }
 
-  handleLightbox (targetData) {
-    this.setState({ ACTIVE_LIGHTBOX: targetData[0] });
+  handleLightbox (targetData, fullData) {
+    this.setState({ ACTIVE_LIGHTBOX: targetData[0], ACTIVE_DATA: fullData });
     console.log('--------');
     console.log(targetData[0]);
     document.documentElement.style.overflow = 'hidden';
@@ -48,13 +50,13 @@ class Home extends React.Component {
   }
 
   render () {
-    const onclick = this.handleGallery;
     return (
       <div>
         {
           this.state.ACTIVE_LIGHTBOX ?
             <Lightbox
               targetData={this.state.ACTIVE_LIGHTBOX}
+              fullData={this.state.ACTIVE_DATA}
               close={this.closeLightbox}
             /> :
             null
@@ -63,7 +65,7 @@ class Home extends React.Component {
         <HomepageGalleries
           galleries={GALLERIES_TEMP}
           srcValues={IMAGE_POINTERS}
-          onclick={onclick}
+          onclick={this.handleGallery}
           activeGallery={this.state.ACTIVE_GALLERY}
           activeIndex={this.state.ACTIVE_INDEX}
         />

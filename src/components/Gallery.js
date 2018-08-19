@@ -1,10 +1,12 @@
 import React from 'react';
 import PropType from 'prop-types';
 import axios from 'axios';
-import { TweenMax, Power2 } from 'gsap/TweenMax';
+import { TweenMax } from 'gsap/TweenMax';
 
 import Return from './Return';
 import Image from './Image';
+
+/* Next step move full dataset from gallery to lightbox to incorporate next/prev buttons, that may mean moving the axios call to the home container */
 
 class Gallery extends React.Component {
   constructor (props) {
@@ -31,14 +33,16 @@ class Gallery extends React.Component {
 
   handleSingleData (e) {
     const targetId = e.target.dataset.id;
+    console.log('--- processing single data ---');
     console.log(this.state.data);
-    const singleData = this.state.data.content.filter(x => {
+    const singleData = this.state.data.content.filter((x, i) => {
       if (x.id === targetId) {
         x.type = this.state.data.name;
+        x.index = i;
         return x;
       }
     });
-    this.props.handleLightbox(singleData);
+    this.props.handleLightbox(singleData, this.state.data);
   }
 
   handleAnimation () {
@@ -55,7 +59,11 @@ class Gallery extends React.Component {
       return (
         <div>
           <Return onclick={this.props.reset}/>
-          {this.state.loading ? <h1 className="center p2" id="loading">Loading...</h1> : null}
+          {
+            this.state.loading ?
+              <h1 className="center p2" id="loading">Loading...</h1> :
+              null
+          }
           <div className="p2 flex flex-wrap" id="Gallery-Container" ref={this.GalleryRef} >
             {
               data.content.map((x, i) => {

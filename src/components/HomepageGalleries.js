@@ -1,26 +1,24 @@
 import React from 'react';
 import PropType from 'prop-types';
-import HomepageGallery from './HomepageGallery'
+import HomepageGallery from './HomepageGallery';
 
 class HomepageGalleries extends React.Component {
-
-  componentDidMount() {
+  componentDidMount () {
     console.log('a gallery mounted');
   }
 
-  render() {
-    const { galleries, onclick, srcValues, activeIndex } = this.props
-
+  render () {
+    const { galleries, onclick, srcValues, activeIndex } = this.props;
     if (activeIndex || activeIndex === 0) {
       console.log(`activeIndex ${activeIndex}`);
       return (
         <HomepageGallery name={galleries[activeIndex]} key={activeIndex} index={activeIndex} src={srcValues[activeIndex]} onclick={onclick}/>
-      )
+      );
     }
 
     return (
-      galleries.map((x,i)=>{
-        return <HomepageGallery name={x} key={i} index={i} src={srcValues[i]} onclick={onclick}/>
+      galleries.map((x, i) => {
+        return <HomepageGallery name={x} key={i} index={i} src={srcValues[i]} onclick={onclick}/>;
       })
     );
   }
@@ -34,7 +32,8 @@ HomepageGalleries.propTypes = {
     PropType.bool,
     PropType.string
   ]),
-  activeIndex: PropType.number
-}
+  activeIndex: PropType.number,
+  onclick: PropType.func
+};
 
 export default HomepageGalleries;
