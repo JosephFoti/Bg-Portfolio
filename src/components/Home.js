@@ -3,16 +3,18 @@ import Header from './Header';
 import HomepageGalleries from './HomepageGalleries';
 import Gallery from './Gallery';
 import Lightbox from './Lightbox';
+import Loader from './Loader';
+import axios from 'axios';
 import '../styles/App.css';
 
 // Strings that match with gallery names, to be replaced with an axios call
-const GALLERIES_TEMP = ["Word Art", "Collage", "Painting", "Comic Concepts"];
-const IMAGE_POINTERS = ["word-art", "collage", "painting", "comic-concepts"];
+const API_ACCESS = "bg-admin";
 
 class Home extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      COLLECTIONS: false,
       ACTIVE_GALLERY: false,
       ACTIVE_INDEX: null,
       ACTIVE_LIGHTBOX: false,
@@ -24,12 +26,31 @@ class Home extends React.Component {
     this.closeLightbox = this.closeLightbox.bind(this);
   }
 
+  componentDidMount () {
+    axios.get(`http://localhost:5000/api/configs/${API_ACCESS}`).then(res => {
+      let galleryNames = res.data.map(x => {
+        let split = x.split('');
+        if (split.includes('-')) {
+          return x.split('-').join(' ');
+        }
+        return x;
+      });
+
+      let collections = {
+        POINTERS: res.data,
+        NAMES: galleryNames
+      };
+      console.log(`Initial Config data recieved`, collections);
+      this.setState({ COLLECTIONS: collections });
+    });
+  }
+
   handleGallery (e) {
     let target = e.target.parentElement;
     console.log('handleGallery called');
     if (target.dataset.index) {
       let index = parseInt(target.dataset.index, 10);
-      this.setState({ ACTIVE_GALLERY: IMAGE_POINTERS[index], ACTIVE_INDEX: index });
+      this.setState({ ACTIVE_GALLERY: this.state.COLLECTIONS.POINTERS[index], ACTIVE_INDEX: index });
     }
   }
 
@@ -61,14 +82,18 @@ class Home extends React.Component {
             /> :
             null
         }
-        <Header/>
-        <HomepageGalleries
-          galleries={GALLERIES_TEMP}
-          srcValues={IMAGE_POINTERS}
-          onclick={this.handleGallery}
-          activeGallery={this.state.ACTIVE_GALLERY}
-          activeIndex={this.state.ACTIVE_INDEX}
-        />
+        <Header />
+        {
+          this.state.COLLECTIONS ?
+            <HomepageGalleries
+              galleries={this.state.COLLECTIONS.NAMES}
+              srcValues={this.state.COLLECTIONS.POINTERS}
+              onclick={this.handleGallery}
+              activeGallery={this.state.ACTIVE_GALLERY}
+              activeIndex={this.state.ACTIVE_INDEX}
+            /> :
+            <Loader />
+        }
         {
           this.state.ACTIVE_GALLERY ?
             <Gallery

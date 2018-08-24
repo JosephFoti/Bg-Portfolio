@@ -16,7 +16,7 @@ class HomepageGallery extends React.Component {
           <img src={`./images/featured/${this.props.src}-ft.jpg`} className="fit" alt={this.props.name} />
         </div>
         <div className="p2 target" data-index={this.props.index} style={{ flex: 5 }}>
-          <h1 className="h1 my1">{this.props.name}</h1>
+          <h1 className="h1 my1" style={{ textTransform: "capitalize" }}>{this.props.name}</h1>
           <p className="p p1 mb1 border">
               This is my {this.props.name} gallery! It's made of this and that and such.
           </p>
